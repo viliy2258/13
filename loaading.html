@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завантаження</title>
+    <link rel="stylesheet" href="stl.css"> <!-- CSS файл -->
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #282c34;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .loader-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #282c34;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .loader {
+            border: 10px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 10px solid #61dafb;
+            border-right: 10px solid #61dafb;
+            width: 80px;
+            height: 80px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .content {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            background-color: #ffffff;
+        }
+
+        .content.show {
+            opacity: 1;
+        }
+
+        h1 {
+            color: #282c34;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <div class="content">
+        <h1>Вітаємо у вашому додатку!</h1>
+    </div>
+
+    <script>
+        // Функція перевірки завантаження всіх ресурсів
+        function checkResourcesLoaded() {
+            if (document.readyState === 'complete') {
+                // Якщо всі ресурси завантажені, приховуємо анімацію завантаження
+                document.querySelector('.loader-wrapper').style.opacity = '0';
+                document.querySelector('.content').classList.add('show');
+
+                // Після 1 секунди видаляємо елемент з DOM
+                setTimeout(function() {
+                    document.querySelector('.loader-wrapper').remove();
+                }, 1000);
+            }
+        }
+
+        // Перевірка завантаження сторінки
+        window.addEventListener('load', checkResourcesLoaded);
+    </script>
+    <script src="skript.js"></script> <!-- JavaScript файл -->
+</body>
+</html>
